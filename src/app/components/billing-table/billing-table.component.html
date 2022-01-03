@@ -1,0 +1,11 @@
+<div>
+    <ng-container *ngIf="loadTable">
+        <button class="button" color="primary" mat-button (click)="addTransaction()">
+            <mat-icon>add_circle</mat-icon>add transaction
+        </button>
+        <ngx-datatable [columns]="columns" [rows]="rows">
+        </ngx-datatable>
+    </ng-container>
+    <mat-progress-spinner *ngIf="!loadTable" color="primary" mode="indeterminate" value="50" diameter="40">
+    </mat-progress-spinner>
+</div>
