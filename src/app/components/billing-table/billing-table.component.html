@@ -1,11 +1,13 @@
-<div>
-    <ng-container *ngIf="loadTable">
-        <button class="button" color="primary" mat-button (click)="addTransaction()">
+<div fxLayout="column" fxFlex="1 1 100">
+    <ng-container *ngIf="loadTable" fxLayout="column" fxFlex="1 1 100">
+        <button fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button (click)="addTransaction()">
             <mat-icon>add_circle</mat-icon>add transaction
         </button>
-        <ngx-datatable [columns]="columns" [rows]="rows">
+        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" [rows]="rows">
         </ngx-datatable>
     </ng-container>
-    <mat-progress-spinner *ngIf="!loadTable" color="primary" mode="indeterminate" value="50" diameter="40">
-    </mat-progress-spinner>
+    <div fxLayout="column" fxFlex="1 1 100">
+        <mat-progress-spinner *ngIf="!loadTable" color="primary" mode="indeterminate" value="50" diameter="40">
+        </mat-progress-spinner>
+    </div>
 </div>

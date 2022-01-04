@@ -1,0 +1,36 @@
+<div fxLayout="column" fxFlex="1 1 100">
+    <div class="title" fxLayout="row" fxFlex="1 1 10" fxLayoutGap="10px">
+        {{data.action}} Transaction
+    </div>
+    <div *ngIf="loadForm" fxLayout="row" fxFlex="1 1 90">
+        <form [formGroup]="transactionForm" fxLayout="column" fxFlex="1 1 100" fxLayoutGap="10px">
+            <!--------------------------------- Contact ID Type --------------------------------->
+            <mat-form-field class="form-field" fxFlex="1 1 100">
+                <mat-select matInput formControlName="customer_id" placeholder="Customer">
+                    <mat-option *ngFor="let customer of data.customers" [value]="customer._id">{{customer.email}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
+                <input matInput placeholder="Cerdit card number" formControlName="cerditCardNumber"
+                    name="cerditCardNumber" type="number" required>
+            </mat-form-field>
+            <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
+                <input matInput placeholder="Cerdit card type" formControlName="cerditCardType" name="cerditCardType"
+                    type="text" required>
+            </mat-form-field>
+            <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
+                <input matInput placeholder="Currency" formControlName="currency" name="currency" type="text" required>
+            </mat-form-field>
+            <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
+                <input matInput placeholder="Total price" formControlName="totalPrice" name="totalPrice" type="number"
+                    required>
+            </mat-form-field>
+            <!--------------------------------- Save / Close buttons --------------------------------->
+            <div class="buttons" fxLayout="row" fxFlex="1 1 100" fxLayoutAlign="center center">
+                <button class="confirm-btn" type="submit" mat-button color="primary" (click)="submit()">submit</button>
+                <button class="cancel-btn" (click)="dialogRef.close()" mat-button>close</button>
+            </div>
+        </form>
+    </div>
+</div>

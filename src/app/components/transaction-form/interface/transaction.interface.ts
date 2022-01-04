@@ -1,6 +1,5 @@
 export interface Transaction {
-    customer_name: string;
-    customer_email: string;
+    customer_id: string;
     total_price: number;
     currency: string;
     cerdit_card_type: string;
