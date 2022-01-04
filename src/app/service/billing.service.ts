@@ -19,9 +19,9 @@ export class BillingService {
     return this.http.post('http://localhost:2000/transaction/create', transaction, { headers });
   }
 
-  public editTransaction(transaction: Transaction): Observable<any> {
+  public editTransaction(transactionId: string, transaction: Transaction): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post('http://localhost:2000/transaction/create', transaction, { headers });
+    return this.http.post(`http://localhost:2000/transaction/update/${transactionId}`, transaction, { headers });
   }
 
   public deleteTransaction(transactionId: string): Observable<any> {

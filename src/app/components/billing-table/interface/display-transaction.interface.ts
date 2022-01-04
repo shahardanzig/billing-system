@@ -1,4 +1,5 @@
 export interface DisplayTransaction {
+    _id: string,
     customer_id: string,
     customer_name: string;
     customer_email: string;

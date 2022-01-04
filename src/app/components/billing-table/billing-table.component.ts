@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BillingService } from 'src/app/service/billing.service';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
@@ -34,7 +34,8 @@ export class BillingTableComponent implements OnInit {
 
   constructor(
     private dialogService: MatDialog,
-    private billingService: BillingService
+    private billingService: BillingService,
+    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -57,17 +58,21 @@ export class BillingTableComponent implements OnInit {
   }
 
   public addTransaction() {
+
     const dialogRef = this.dialogService.open(TransactionFormComponent, {
       width: '500px',
       disableClose: true,
       data: {
         action: "add",
-        customers: this.rows.map(row => ({ _id: row.customer_id, name: row.customer_name, email: row.customer_email }))
+        customers: this.getUniqueCustomers()
       }
     });
     dialogRef.afterClosed().subscribe((displayTransaction: DisplayTransaction) => {
-      this.rows.push(displayTransaction);
-      this.rows = [...this.rows];
+      if (displayTransaction) {
+        this.rows.push(displayTransaction);
+        this.rows = [...this.rows];
+        this.selected = [];
+      }
     })
   }
 
@@ -76,15 +81,36 @@ export class BillingTableComponent implements OnInit {
       width: '500px',
       disableClose: true,
       data: {
-        action: "add",
-        customers: this.rows.map(row => ({ _id: row.customer_id, name: row.customer_name, email: row.customer_email })),
-        displatTransaction: this.selected[0]
+        action: "edit",
+        customers: this.getUniqueCustomers(),
+        displayTransaction: this.selected[0]
       }
     });
     dialogRef.afterClosed().subscribe((displayTransaction: DisplayTransaction) => {
-      this.rows.push(displayTransaction);
-      this.rows = [...this.rows];
+      if (displayTransaction) {
+        const { cerdit_card_number, cerdit_card_type, currency, customer_email, customer_id, customer_name, total_price } = displayTransaction;
+
+        let row = this.rows.find(row => this.selected[0]._id === row._id);
+        row.cerdit_card_number = cerdit_card_number;
+        row.cerdit_card_type = cerdit_card_type;
+        row.currency = currency;
+        row.customer_email = customer_email;
+        row.customer_id = customer_id;
+        row.customer_name = customer_name;
+        row.total_price = total_price;
+
+        this.selected = [];
+      }
     })
+  }
+
+  private getUniqueCustomers() {
+    return this.rows.filter((value, index, self) =>
+      index === self.findIndex((t) => (
+        t.customer_id === value.customer_id
+      )
+      ))
+      .map(row => ({ _id: row.customer_id, name: row.customer_name, email: row.customer_email }));
   }
 
   public deleteTransaction() {

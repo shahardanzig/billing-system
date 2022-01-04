@@ -19,11 +19,11 @@ export class TransactionFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactionForm = this.formBuilder.group({
-      totalPrice: [0, [Validators.required]],
-      currency: ['', [Validators.required]],
-      cerditCardType: ['', [Validators.required]],
-      cerditCardNumber: [0, [Validators.required]],
-      customer_id: ['', [Validators.required]]
+      totalPrice: [this.data.displayTransaction?.total_price || 0, [Validators.required]],
+      currency: [this.data.displayTransaction?.currency || '', [Validators.required]],
+      cerditCardType: [this.data.displayTransaction?.cerdit_card_type || '', [Validators.required]],
+      cerditCardNumber: [this.data.displayTransaction?.cerdit_card_number || 0, [Validators.required]],
+      customer_id: [this.data.displayTransaction?.customer_id || '', [Validators.required]]
     });
 
     this.loadForm = true;
@@ -46,7 +46,27 @@ export class TransactionFormComponent implements OnInit {
       cerdit_card_type: form.cerditCardType,
       total_price: form.totalPrice,
     }
-    
+
+    if (this.data.action === 'add') {
+      this.createTransaction(transaction);
+    }
+    else {
+      this.editTransaction(transaction);
+    }
+  }
+
+  private editTransaction(transaction: Transaction): void {
+    this.billingService.editTransaction(this.data.displayTransaction._id, transaction).subscribe(savedTransaction => {
+      const customer = this.data.customers.find(c => c._id === savedTransaction.customer_id);
+      this.dialogRef.close({
+        ...transaction,
+        customer_name: customer.name,
+        customer_email: customer.email
+      });
+    }, error => console.log("error", error))
+  }
+
+  private createTransaction(transaction: Transaction): void {
     this.billingService.createTransaction(transaction).subscribe(savedTransaction => {
       const customer = this.data.customers.find(c => c._id === savedTransaction.customer_id);
       this.dialogRef.close({
