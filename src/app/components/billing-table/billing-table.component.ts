@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from 'src/app/service/transaction.service';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
-import { DisplayTransaction } from '../interface/display-transaction.interface';
+import { DisplayTransaction } from '../../interface/display-transaction.interface';
 
 @Component({
   selector: 'app-billing-table',

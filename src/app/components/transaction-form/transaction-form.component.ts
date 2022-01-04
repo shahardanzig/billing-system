@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomerService } from 'src/app/service/customer.service';
 import { TransactionService } from 'src/app/service/transaction.service';
-import { Customer } from '../interface/customer.interface';
-import { Transaction } from '../interface/transaction.interface';
+import { Customer } from '../../interface/customer.interface';
+import { Transaction } from '../../interface/transaction.interface';
 
 @Component({
   selector: 'app-transaction-form',
