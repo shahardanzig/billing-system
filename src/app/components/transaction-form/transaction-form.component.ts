@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BillingService } from 'src/app/service/billing.service';
+import { TransactionService } from 'src/app/service/transaction.service';
 import { Transaction } from './interface/transaction.interface';
 
 @Component({
@@ -15,7 +15,7 @@ export class TransactionFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<TransactionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private billingService: BillingService) { }
+    private transactionService: TransactionService) { }
 
   ngOnInit(): void {
     this.transactionForm = this.formBuilder.group({
@@ -56,7 +56,7 @@ export class TransactionFormComponent implements OnInit {
   }
 
   private editTransaction(transaction: Transaction): void {
-    this.billingService.editTransaction(this.data.displayTransaction._id, transaction).subscribe(savedTransaction => {
+    this.transactionService.editTransaction(this.data.displayTransaction._id, transaction).subscribe(savedTransaction => {
       const customer = this.data.customers.find(c => c._id === savedTransaction.customer_id);
       this.dialogRef.close({
         ...transaction,
@@ -67,7 +67,7 @@ export class TransactionFormComponent implements OnInit {
   }
 
   private createTransaction(transaction: Transaction): void {
-    this.billingService.createTransaction(transaction).subscribe(savedTransaction => {
+    this.transactionService.createTransaction(transaction).subscribe(savedTransaction => {
       const customer = this.data.customers.find(c => c._id === savedTransaction.customer_id);
       this.dialogRef.close({
         ...transaction,

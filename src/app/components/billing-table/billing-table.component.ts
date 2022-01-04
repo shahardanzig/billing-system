@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BillingService } from 'src/app/service/billing.service';
+import { TransactionService } from 'src/app/service/transaction.service';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
 import { DisplayTransaction } from './interface/display-transaction.interface';
 
@@ -34,7 +34,7 @@ export class BillingTableComponent implements OnInit {
 
   constructor(
     private dialogService: MatDialog,
-    private billingService: BillingService,
+    private transactionService: TransactionService,
     private cd: ChangeDetectorRef
   ) { }
 
@@ -49,7 +49,7 @@ export class BillingTableComponent implements OnInit {
   }
 
   private getAllTransactions() {
-    this.billingService.getAllTransactions().subscribe(transactions => {
+    this.transactionService.getAllTransactions().subscribe(transactions => {
       this.rows = transactions;
       this.loadTable = true;
     }, error => {
@@ -108,13 +108,12 @@ export class BillingTableComponent implements OnInit {
     return this.rows.filter((value, index, self) =>
       index === self.findIndex((t) => (
         t.customer_id === value.customer_id
-      )
-      ))
+      )))
       .map(row => ({ _id: row.customer_id, name: row.customer_name, email: row.customer_email }));
   }
 
   public deleteTransaction() {
-    this.billingService.deleteTransaction(this.selected[0].customer_id).subscribe(() => {
+    this.transactionService.deleteTransaction(this.selected[0].customer_id).subscribe(() => {
       this.rows = this.rows.filter(row => row.customer_id !== this.selected[0].customer_id);
       this.selected = [];
     }, error => console.log("error", error))

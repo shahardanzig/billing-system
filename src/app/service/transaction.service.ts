@@ -6,7 +6,7 @@ import { Transaction } from '../components/transaction-form/interface/transactio
 @Injectable({
   providedIn: 'root'
 })
-export class BillingService {
+export class TransactionService {
 
   constructor(private http: HttpClient) { }
 
