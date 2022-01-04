@@ -3,7 +3,15 @@
         <button fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button (click)="addTransaction()">
             <mat-icon>add_circle</mat-icon>add transaction
         </button>
-        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" [rows]="rows">
+        <button *ngIf="selected.length === 1" fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button
+            (click)="editTransaction()">
+            <mat-icon>edit</mat-icon>edit transaction
+        </button>
+        <button *ngIf="selected.length === 1" fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button
+            (click)="deleteTransaction()">
+            <mat-icon>delete</mat-icon>delete transaction
+        </button>
+        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" [rows]="rows" [selected]="selected" (select)='onSelect($event)' [selectionType]="'checkbox'">
         </ngx-datatable>
     </ng-container>
     <div fxLayout="column" fxFlex="1 1 100">

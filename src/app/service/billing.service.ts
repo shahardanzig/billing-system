@@ -18,4 +18,14 @@ export class BillingService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post('http://localhost:2000/transaction/create', transaction, { headers });
   }
+
+  public editTransaction(transaction: Transaction): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post('http://localhost:2000/transaction/create', transaction, { headers });
+  }
+
+  public deleteTransaction(transactionId: string): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.delete(`http://localhost:2000/transaction/${transactionId}`);
+  }
 }
