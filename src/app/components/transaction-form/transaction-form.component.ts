@@ -69,14 +69,14 @@ export class TransactionFormComponent implements OnInit {
   }
 
   private editTransaction(transaction: Transaction): void {
-    this.transactionService.editTransaction(this.data.displayTransaction._id, transaction).subscribe(() => {
-      this.returnDisplayTransaction(transaction);
+    this.transactionService.editTransaction(this.data.displayTransaction._id, transaction).subscribe((savedTansaction: Transaction) => {
+      this.returnDisplayTransaction(savedTansaction);
     }, error => console.log("error", error))
   }
 
   private createTransaction(transaction: Transaction): void {
-    this.transactionService.createTransaction(transaction).subscribe(() => {
-      this.returnDisplayTransaction(transaction);
+    this.transactionService.createTransaction(transaction).subscribe((savedTansaction: Transaction) => {
+      this.returnDisplayTransaction(savedTansaction);
     }, error => console.log("error", error))
   }
 
