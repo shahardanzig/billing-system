@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFlex="1 1 100">
+<div class="form-container" fxLayout="column" fxFlex="1 1 100">
     <div class="title" fxLayout="row" fxFlex="1 1 10" fxLayoutGap="10px">
         {{data.action}} Transaction
     </div>
@@ -7,7 +7,7 @@
             <!--------------------------------- Contact ID Type --------------------------------->
             <mat-form-field class="form-field" fxFlex="1 1 100">
                 <mat-select matInput formControlName="customer_id" placeholder="Customer">
-                    <mat-option *ngFor="let customer of data.customers" [value]="customer._id">{{customer.email}}
+                    <mat-option *ngFor="let customer of customers" [value]="customer._id">{{customer.email}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -32,5 +32,9 @@
                 <button class="cancel-btn" (click)="dialogRef.close()" mat-button>close</button>
             </div>
         </form>
+    </div>
+    <div *ngIf="!loadForm" fxLayout="row" fxFlex="1 1 90">
+        <mat-progress-spinner class="spinner" color="primary" mode="indeterminate" value="50" diameter="40">
+        </mat-progress-spinner>
     </div>
 </div>

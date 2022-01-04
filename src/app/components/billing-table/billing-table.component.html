@@ -1,5 +1,5 @@
-<div fxLayout="column" fxFlex="1 1 100">
-    <ng-container *ngIf="loadTable" fxLayout="column" fxFlex="1 1 100">
+<div class="table-container" fxLayout="column" fxFlex="1 1 100">
+    <div *ngIf="loadTable" fxLayout="column" fxFlex="1 1 100">
         <button fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button (click)="addTransaction()">
             <mat-icon>add_circle</mat-icon>add transaction
         </button>
@@ -11,11 +11,12 @@
             (click)="deleteTransaction()">
             <mat-icon>delete</mat-icon>delete transaction
         </button>
-        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" [rows]="rows" [selected]="selected" (select)='onSelect($event)' [selectionType]="'checkbox'">
+        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" [rows]="rows" [selected]="selected"
+            (select)='onSelect($event)' [selectionType]="'checkbox'">
         </ngx-datatable>
-    </ng-container>
-    <div fxLayout="column" fxFlex="1 1 100">
-        <mat-progress-spinner *ngIf="!loadTable" color="primary" mode="indeterminate" value="50" diameter="40">
+    </div>
+    <div *ngIf="!loadTable" fxLayout="column" fxFlex="1 1 100">
+        <mat-progress-spinner class="spinner" color="primary" mode="indeterminate" value="50" diameter="40">
         </mat-progress-spinner>
     </div>
 </div>

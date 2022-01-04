@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionService } from 'src/app/service/transaction.service';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
-import { DisplayTransaction } from './interface/display-transaction.interface';
+import { DisplayTransaction } from '../interface/display-transaction.interface';
 
 @Component({
   selector: 'app-billing-table',
@@ -63,8 +63,7 @@ export class BillingTableComponent implements OnInit {
       width: '500px',
       disableClose: true,
       data: {
-        action: "add",
-        customers: this.getUniqueCustomers()
+        action: "add"
       }
     });
     dialogRef.afterClosed().subscribe((displayTransaction: DisplayTransaction) => {
@@ -82,7 +81,6 @@ export class BillingTableComponent implements OnInit {
       disableClose: true,
       data: {
         action: "edit",
-        customers: this.getUniqueCustomers(),
         displayTransaction: this.selected[0]
       }
     });
@@ -102,14 +100,6 @@ export class BillingTableComponent implements OnInit {
         this.selected = [];
       }
     })
-  }
-
-  private getUniqueCustomers() {
-    return this.rows.filter((value, index, self) =>
-      index === self.findIndex((t) => (
-        t.customer_id === value.customer_id
-      )))
-      .map(row => ({ _id: row.customer_id, name: row.customer_name, email: row.customer_email }));
   }
 
   public deleteTransaction() {

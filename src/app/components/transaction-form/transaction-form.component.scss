@@ -1,15 +1,22 @@
-.buttons {
-    width: 50%;
-    margin: 0 auto;
-}
+.form-container {
+    .buttons {
+        width: 50%;
+        margin: 0 auto;
+    }
 
-mat-form-field {
-    width: 400px
-}
+    mat-form-field {
+        width: 400px
+    }
 
-.title {
-    font-size: x-large;
-    margin-bottom: 2%;
-    width: 50%;
-    margin: 0 auto;
+    .title {
+        font-size: x-large;
+        margin-bottom: 2%;
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    .spinner {
+        width: 50%;
+        margin: 0 auto;
+    }
 }
