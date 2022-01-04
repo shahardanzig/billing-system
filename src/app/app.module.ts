@@ -16,12 +16,14 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BillingTableComponent,
-    TransactionFormComponent
+    TransactionFormComponent,
+    CustomerFormComponent
   ],
   imports: [
     BrowserModule,

@@ -81,7 +81,6 @@ export class TransactionFormComponent implements OnInit {
   }
 
   private returnDisplayTransaction(transaction: Transaction){
-    console.log("transaction", transaction)
     const customer = this.customers.find(c => c._id === transaction.customer_id);
       this.dialogRef.close({
         ...transaction,

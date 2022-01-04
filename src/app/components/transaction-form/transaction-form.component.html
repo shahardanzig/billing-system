@@ -4,24 +4,28 @@
     </div>
     <div *ngIf="loadForm" fxLayout="row" fxFlex="1 1 90">
         <form [formGroup]="transactionForm" fxLayout="column" fxFlex="1 1 100" fxLayoutGap="10px">
-            <!--------------------------------- Contact ID Type --------------------------------->
+            <!--------------------------------- customer --------------------------------->
             <mat-form-field class="form-field" fxFlex="1 1 100">
                 <mat-select matInput formControlName="customer_id" placeholder="Customer">
                     <mat-option *ngFor="let customer of customers" [value]="customer._id">{{customer.email}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+             <!--------------------------------- cerdit card number --------------------------------->
             <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
                 <input matInput placeholder="Cerdit card number" formControlName="cerditCardNumber"
                     name="cerditCardNumber" type="number" required>
             </mat-form-field>
+             <!---------------------------------  cerdit card type --------------------------------->
             <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
                 <input matInput placeholder="Cerdit card type" formControlName="cerditCardType" name="cerditCardType"
                     type="text" required>
             </mat-form-field>
+            <!---------------------------------  currency --------------------------------->
             <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
                 <input matInput placeholder="Currency" formControlName="currency" name="currency" type="text" required>
             </mat-form-field>
+            <!---------------------------------  total price --------------------------------->
             <mat-form-field class="form-field" fxLayout="row" fxFlex="1 1 100">
                 <input matInput placeholder="Total price" formControlName="totalPrice" name="totalPrice" type="number"
                     required>

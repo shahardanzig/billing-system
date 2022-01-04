@@ -11,8 +11,8 @@
             (click)="deleteTransaction()">
             <mat-icon>delete</mat-icon>delete transaction
         </button>
-        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" [rows]="rows" [selected]="selected"
-            (select)='onSelect($event)' [selectionType]="'checkbox'">
+        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" rowHeight="auto" [rows]="rows" [headerHeight]="30" [footerHeight]="30" [selected]="selected"
+            (select)='onSelect($event)' [selectionType]="'checkbox'" [limit]="20">
         </ngx-datatable>
     </div>
     <div *ngIf="!loadTable" fxLayout="column" fxFlex="1 1 100">

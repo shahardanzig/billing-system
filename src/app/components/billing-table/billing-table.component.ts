@@ -103,8 +103,8 @@ export class BillingTableComponent implements OnInit {
   }
 
   public deleteTransaction() {
-    this.transactionService.deleteTransaction(this.selected[0].customer_id).subscribe(() => {
-      this.rows = this.rows.filter(row => row.customer_id !== this.selected[0].customer_id);
+    this.transactionService.deleteTransaction(this.selected[0]._id).subscribe(() => {
+      this.rows = this.rows.filter(row => row._id !== this.selected[0]._id);
       this.selected = [];
     }, error => console.log("error", error))
   }
