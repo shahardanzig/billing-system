@@ -7,7 +7,7 @@
             <!--------------------------------- customer --------------------------------->
             <mat-form-field class="form-field" fxFlex="1 1 100">
                 <mat-select matInput formControlName="customer_id" placeholder="Customer">
-                    <mat-option *ngFor="let customer of customers" [value]="customer._id">{{customer.email}}
+                    <mat-option *ngFor="let customer of data.customers" [value]="customer._id">{{customer.email}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -31,9 +31,9 @@
                     required>
             </mat-form-field>
             <!--------------------------------- Save / Close buttons --------------------------------->
-            <div class="buttons" fxLayout="row" fxFlex="1 1 100" fxLayoutAlign="center center">
-                <button class="confirm-btn" type="submit" mat-button color="primary" (click)="submit()">submit</button>
-                <button class="cancel-btn" (click)="dialogRef.close()" mat-button>close</button>
+            <div fxLayout="row" fxFlex="1 1 50" fxLayoutAlign="center center">
+                <button class="buttons" type="submit" mat-button color="primary" (click)="submit()">submit</button>
+                <button class="buttons" (click)="dialogRef.close()" mat-button>close</button>
             </div>
         </form>
     </div>

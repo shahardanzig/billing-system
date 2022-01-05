@@ -1,20 +1,25 @@
 <div class="table-container" fxLayout="column" fxFlex="1 1 100">
     <div *ngIf="loadTable" fxLayout="column" fxFlex="1 1 100">
+         <!--------------------------------- add transaction --------------------------------->
         <button fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button (click)="addTransaction()">
             <mat-icon>add_circle</mat-icon>add transaction
         </button>
+        <!--------------------------------- edit transaction --------------------------------->
         <button *ngIf="selected.length === 1" fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button
             (click)="editTransaction()">
             <mat-icon>edit</mat-icon>edit transaction
         </button>
+        <!--------------------------------- delete transaction --------------------------------->
         <button *ngIf="selected.length === 1" fxLayout="row" fxFlex="1 1 10" class="button" color="primary" mat-button
             (click)="deleteTransaction()">
             <mat-icon>delete</mat-icon>delete transaction
         </button>
-        <ngx-datatable fxLayout="row" fxFlex="1 1 90" [columns]="columns" rowHeight="auto" [rows]="rows" [headerHeight]="30" [footerHeight]="30" [selected]="selected"
+        <!--------------------------------- datatable --------------------------------->
+        <ngx-datatable class="material" fxLayout="row" fxFlex="1 1 90" [columns]="columns" rowHeight="auto" [rows]="rows" [headerHeight]="50" [footerHeight]="50" [selected]="selected"
             (select)='onSelect($event)' [selectionType]="'checkbox'" [limit]="20">
         </ngx-datatable>
     </div>
+    <!--------------------------------- spinner --------------------------------->
     <div *ngIf="!loadTable" fxLayout="column" fxFlex="1 1 100">
         <mat-progress-spinner class="spinner" color="primary" mode="indeterminate" value="50" diameter="40">
         </mat-progress-spinner>

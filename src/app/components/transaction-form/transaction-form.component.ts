@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CustomerService } from 'src/app/service/customer.service';
-import { TransactionService } from 'src/app/service/transaction.service';
-import { Customer } from '../../interface/customer.interface';
+import { TransactionService } from '../../service/transaction.service';
 import { Transaction } from '../../interface/transaction.interface';
 
 @Component({
@@ -14,13 +12,11 @@ import { Transaction } from '../../interface/transaction.interface';
 export class TransactionFormComponent implements OnInit {
   public transactionForm: FormGroup;
   public loadForm: boolean
-  public customers: Customer[];
 
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<TransactionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private transactionService: TransactionService,
-    private customerService: CustomerService) { }
+    private transactionService: TransactionService) { }
 
   ngOnInit(): void {
     this.transactionForm = this.formBuilder.group({
@@ -31,7 +27,7 @@ export class TransactionFormComponent implements OnInit {
       customer_id: [this.data.displayTransaction?.customer_id || '', [Validators.required]]
     });
 
-    this.getAllCustomers();
+    this.loadForm = true;
   }
 
   get formControls() {
@@ -60,14 +56,6 @@ export class TransactionFormComponent implements OnInit {
     }
   }
 
-  private getAllCustomers() {
-    this.customerService.getAllCustomers().subscribe((customers: Customer[]) => {
-      this.customers = customers;
-      this.loadForm = true;
-
-    }, error => console.log("error", error))
-  }
-
   private editTransaction(transaction: Transaction): void {
     this.transactionService.editTransaction(this.data.displayTransaction._id, transaction).subscribe((savedTansaction: Transaction) => {
       this.returnDisplayTransaction(savedTansaction);
@@ -81,7 +69,7 @@ export class TransactionFormComponent implements OnInit {
   }
 
   private returnDisplayTransaction(transaction: Transaction){
-    const customer = this.customers.find(c => c._id === transaction.customer_id);
+    const customer = this.data.customers.find(c => c._id === transaction.customer_id);
       this.dialogRef.close({
         ...transaction,
         customer_name: `${customer.first_name} ${customer.last_name}`,

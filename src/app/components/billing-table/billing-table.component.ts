@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TransactionService } from 'src/app/service/transaction.service';
+import { TransactionService } from '../../service/transaction.service';
 import { TransactionFormComponent } from '../transaction-form/transaction-form.component';
 import { DisplayTransaction } from '../../interface/display-transaction.interface';
+import { CustomerService } from '../../service/customer.service';
+import { Customer } from '../../interface/customer.interface';
 
 @Component({
   selector: 'app-billing-table',
@@ -31,15 +33,17 @@ export class BillingTableComponent implements OnInit {
 
   public rows: DisplayTransaction[] = [];
   public loadTable: boolean = false;
+  private customers: Customer[] = [];
 
   constructor(
     private dialogService: MatDialog,
     private transactionService: TransactionService,
-    private cd: ChangeDetectorRef
+    private customerService: CustomerService
   ) { }
 
   ngOnInit(): void {
     this.getAllTransactions();
+    this.getAllCustomers();
   }
 
   public onSelect({ selected }) {
@@ -57,13 +61,21 @@ export class BillingTableComponent implements OnInit {
     })
   }
 
+  private getAllCustomers() {
+    this.customerService.getAllCustomers().subscribe((customers: Customer[]) => {
+      this.customers = customers;
+
+    }, error => console.log("error", error))
+  }
+
   public addTransaction() {
 
     const dialogRef = this.dialogService.open(TransactionFormComponent, {
       width: '500px',
       disableClose: true,
       data: {
-        action: "add"
+        action: "add",
+        customers: this.customers
       }
     });
     dialogRef.afterClosed().subscribe((displayTransaction: DisplayTransaction) => {
@@ -81,7 +93,8 @@ export class BillingTableComponent implements OnInit {
       disableClose: true,
       data: {
         action: "edit",
-        displayTransaction: this.selected[0]
+        displayTransaction: this.selected[0],
+        customers: this.customers
       }
     });
     dialogRef.afterClosed().subscribe((displayTransaction: DisplayTransaction) => {
